@@ -1,6 +1,6 @@
-# lottery-2019
+# Lottery 2019
 
-基于Direct2D的抽奖程序
+抽奖程序，可用于公司年会抽奖，基于Direct2D/box2d。
 
 # 安全说明
 
