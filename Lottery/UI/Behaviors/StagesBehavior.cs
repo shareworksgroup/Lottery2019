@@ -1,4 +1,5 @@
-﻿using Lottery2019.UI.Sprites;
+﻿using FlysEngine.Sprites;
+using Lottery2019.UI.Sprites;
 
 namespace Lottery2019.UI.Behaviors
 {
@@ -13,11 +14,7 @@ namespace Lottery2019.UI.Behaviors
         protected float AccumulateDt;
         float WayAccumulate;
 
-        public StagesBehavior(Sprite sprite) : base(sprite)
-        {
-        }
-
-        public override void UpdateLogic(float dt)
+        public override void Update(float dt)
         {
             AccumulateDt += dt;
             if (AccumulateDt >= Stages[StageId])

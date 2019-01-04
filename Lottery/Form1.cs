@@ -17,6 +17,7 @@ using Lottery2019.Dtos;
 using Lottery2019.State;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using FlysEngine.Sprites;
 
 namespace Lottery2019
 {
@@ -169,7 +170,7 @@ namespace Lottery2019
 
                 var maxSpeed = World.BodyList
                     .Where(x => x.UserData is PersonSprite)
-                    .Max(x => x.LinearVelocity.Length());
+                    .Max(x => x.LinearVelocity.Length);
                 if (maxSpeed == 0) maxSpeed = 1;
 
                 Context.GravityRate = 1.0f / maxSpeed;

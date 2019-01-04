@@ -1,4 +1,5 @@
-﻿using Lottery2019.UI.Sprites;
+﻿using FlysEngine.Sprites;
+using Lottery2019.UI.Sprites;
 using SharpDX;
 
 namespace Lottery2019.UI.Behaviors
@@ -9,11 +10,6 @@ namespace Lottery2019.UI.Behaviors
         public float Distance { get; set; } = 50.0f;
 
         public override float Length => Distance;
-
-        public ChomperBehavior(Sprite sprite) :
-            base(sprite)
-        {
-        }
 
         protected override void ByDx(float dx)
         {

@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Lottery2019.UI.Behaviors
 {
-    public abstract class Behavior : IDisposable
+    public abstract class Behavior2 : IDisposable
     {
-        protected readonly Sprite Sprite;
+        protected readonly Sprite2 Sprite;
 
-        public Behavior(Sprite sprite)
+        public Behavior2(Sprite2 sprite)
         {
             Sprite = sprite;
         }
@@ -24,20 +24,20 @@ namespace Lottery2019.UI.Behaviors
             // default do nothing
         }
 
-        private static Dictionary<string, Func<Sprite, Behavior>> BehaviorMap
-            = new Dictionary<string, Func<Sprite, Behavior>>
+        private static Dictionary<string, Func<Sprite2, Behavior2>> BehaviorMap
+            = new Dictionary<string, Func<Sprite2, Behavior2>>
             {
-                [nameof(RotationBehavior)] = r => new RotationBehavior(r),
-                [nameof(AutoFrameBehavior)] = r => new AutoFrameBehavior(r),
-                [nameof(ChomperBehavior)] = r => new ChomperBehavior(r),
-                [nameof(GoAngleBehavior)] = r => new GoAngleBehavior(r), 
-                [nameof(CircleCreatorBehavior)] = r => new CircleCreatorBehavior(r), 
-                [nameof(ButtonBehavior)] = r => new ButtonBehavior(r), 
-                [nameof(AutoBorderBehavior)] = r => new AutoBorderBehavior(r), 
-                [nameof(OpenCloseBehavior)] = r => new OpenCloseBehavior(r)
+                //[nameof(RotationBehavior)] = r => new RotationBehavior(r),
+                //[nameof(AutoFrameBehavior)] = r => new AutoFrameBehavior(r),
+                //[nameof(ChomperBehavior)] = r => new ChomperBehavior(r),
+                //[nameof(GoAngleBehavior)] = r => new GoAngleBehavior(r), 
+                //[nameof(CircleCreatorBehavior)] = r => new CircleCreatorBehavior(r), 
+                //[nameof(ButtonBehavior)] = r => new ButtonBehavior(r), 
+                //[nameof(AutoBorderBehavior)] = r => new AutoBorderBehavior(r), 
+                //[nameof(OpenCloseBehavior)] = r => new OpenCloseBehavior(r)
             };
 
-        public static Behavior Create(string behaviorName, Sprite sprite, Dictionary<string, object> options)
+        public static Behavior2 Create(string behaviorName, Sprite2 sprite, Dictionary<string, object> options)
         {
             if (BehaviorMap.ContainsKey(behaviorName))
             {

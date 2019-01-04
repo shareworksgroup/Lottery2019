@@ -8,6 +8,7 @@ using Lottery2019.UI.Details;
 using SharpDX;
 using Newtonsoft.Json;
 using Lottery2019.State;
+using FlysEngine.Tools;
 
 namespace Lottery2019.Images
 {
@@ -40,7 +41,7 @@ namespace Lottery2019.Images
                 var db = new LotteryDatabase("state.json");
                 Parallel.ForEach(db.GetAllPerson(), person =>
                 {
-                    using (var converter = DirectXTools.CreateWicImage(wic, person.RawImage))
+                    using (var converter = WicTools.CreateWicImage(wic, person.RawImage))
                     {
                         DrawPsd(person, wic, d2dFactory, converter);
                         //DrawSmallRaw(person, wic, d2dFactory, converter);
@@ -70,7 +71,10 @@ namespace Lottery2019.Images
                 target.DrawBitmap(bmp, 1.0f, D2D.BitmapInterpolationMode.Linear);
                 target.EndDraw();
 
-                DirectXTools.SaveD2DBitmap(wic, wicBitmap, person.SmallRawImage);
+                using (var file = File.Create(person.SmallRawImage))
+                {
+                    WicTools.SaveD2DBitmap(wic, wicBitmap, file);
+                }
             }
         }
 
@@ -105,7 +109,10 @@ namespace Lottery2019.Images
                     color, ImageDefines.LineWidth);
                 target.EndDraw();
 
-                DirectXTools.SaveD2DBitmap(wic, wicBitmap, person.PsdImage);
+                using (var file = File.Create(person.PsdImage))
+                {
+                    DirectXTools.SaveD2DBitmap(wic, wicBitmap, person.PsdImage);
+                }
             }
         }
 

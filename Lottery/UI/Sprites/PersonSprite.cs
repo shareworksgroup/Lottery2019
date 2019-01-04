@@ -1,9 +1,10 @@
 ﻿using FarseerPhysics.Dynamics;
+using FlysEngine.Sprites;
+using FlysEngine.Sprites.Shapes;
 using Lottery2019.Images;
 using Lottery2019.UI.Behaviors;
 using Lottery2019.UI.Behaviors.Killings;
 using Lottery2019.UI.Forms;
-using Lottery2019.UI.Shapes;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -20,26 +21,18 @@ namespace Lottery2019.UI.Sprites
         {
             Body.BodyType = BodyType.Dynamic;
             Body.SleepingAllowed = false;
-            SpriteType = "Person";
-            Id = person.Name;
+            Name = "Person";
             Frames = new[] { person.PsdImage };
             Center = circleShape.Center;
             Position = new Vector2(r.NextFloat(538, 1327), r.NextFloat(379, 934));
             UserData = person;
-            Shapes = new List<Shape>
-                    {
-                        circleShape.Clone()
-                    };
-            Behaviors[nameof(AutoBorderBehavior)] = new AutoBorderBehavior(this);
-            KillingBehavior = new GoTransparentKillingBehavior(this);
+            SetShapes(circleShape.Clone());
+            AddBehavior(new AutoBorderBehavior(this));
+            AddBehavior(new GoTransparentKillingBehavior(this));
         }
 
         public Person Person => (Person)UserData;
-        public KillingBehavior KillingBehavior
-        {
-            get => (KillingBehavior)Behaviors[nameof(KillingBehavior)];
-            set => Behaviors[nameof(KillingBehavior)] = value;
-        }
+        public KillingBehavior KillingBehavior => this.QueryBehavior<GoTransparentKillingBehavior>();
 
         public void Kill()
         {

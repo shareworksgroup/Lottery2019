@@ -1,5 +1,5 @@
 ﻿using System;
-using Lottery2019.UI.Sprites;
+using FlysEngine.Sprites;
 
 namespace Lottery2019.UI.Behaviors
 {
@@ -8,11 +8,7 @@ namespace Lottery2019.UI.Behaviors
         const float MaxHoldDuration = 0.2f;
         float _accumulateDt = 0.0f;
 
-        public ButtonBehavior(Sprite sprite) : base(sprite)
-        {
-        }
-
-        public override void UpdateLogic(float dt)
+        public override void Update(float dt)
         {
             var res = Sprite.XResource;
             var win = Sprite.Window;
@@ -34,14 +30,6 @@ namespace Lottery2019.UI.Behaviors
 
                 Sprite.FrameId = 0;
                 _accumulateDt = 0;
-            }
-        }
-
-        public override void Dispose()
-        {
-            foreach (EventHandler d in Click.GetInvocationList())
-            {
-                Click -= d;
             }
         }
 

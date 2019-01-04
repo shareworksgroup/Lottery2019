@@ -1,8 +1,9 @@
 ﻿using System.Linq;
-using Lottery2019.UI.Sprites;
-using Lottery2019.UI.Shapes;
 using SharpDX;
 using SharpDX.Direct2D1;
+using FlysEngine.Sprites;
+using FlysEngine.Managers;
+using FlysEngine.Sprites.Shapes;
 
 namespace Lottery2019.UI.Behaviors
 {
@@ -10,10 +11,6 @@ namespace Lottery2019.UI.Behaviors
     {
         private bool _mouseOverSprite;
         public Color Color = Color.Orange;
-
-        public AutoBorderBehavior(Sprite sprite) : base(sprite)
-        {
-        }
 
         public override void Draw(DeviceContext renderTarget)
         {
@@ -30,7 +27,7 @@ namespace Lottery2019.UI.Behaviors
             }
         }
 
-        public override void UpdateLogic(float dt)
+        public override void Update(float dt)
         {
             var res = Sprite.XResource;
             _mouseOverSprite = Shape.TestPoint(

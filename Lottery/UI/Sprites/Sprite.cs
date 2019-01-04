@@ -1,10 +1,9 @@
 ﻿using FarseerPhysics.Dynamics;
 using FlysEngine;
-using FlysEngine.Desktop;
+using FlysEngine.Sprites;
+using FlysEngine.Sprites.Shapes;
 using Lottery2019.UI.Behaviors;
-using Lottery2019.UI.Details;
 using Lottery2019.UI.Forms;
-using Lottery2019.UI.Shapes;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using Direct2D1 = SharpDX.Direct2D1;
 
 namespace Lottery2019.UI.Sprites
 {
-    public class Sprite : IDisposable
+    public class Sprite2 : IDisposable
     {
         public SpriteForm Window { get; private set; }
 
@@ -58,8 +57,8 @@ namespace Lottery2019.UI.Sprites
 
         public Vector2 Position
         {
-            get => Body.Position.ToVector2();
-            set => Body.Position = value.ToXnaVector2();
+            get => Body.Position.ToDisplay();
+            set => Body.Position = value.ToSimulation();
         }
 
         public Vector2 Center;
@@ -96,12 +95,12 @@ namespace Lottery2019.UI.Sprites
         {
             foreach (var behavior in Behaviors.Values)
             {
-                behavior.UpdateLogic(dt);
+                behavior.Update(dt);
             }
 
             foreach (var child in Children)
             {
-                child.UpdateLogic(dt);
+                child.OnUpdate(dt);
             }
 
             Transform = Matrix3x2.Rotation(Rotation, Center) * Matrix3x2.Translation(Position - Center);

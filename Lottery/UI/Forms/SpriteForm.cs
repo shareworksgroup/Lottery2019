@@ -7,9 +7,8 @@ using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using XnaVector2 = Microsoft.Xna.Framework.Vector2;
+using XnaVector2 = Duality.Vector2;
 using DirectInput = SharpDX.DirectInput;
-using Lottery2019.UI.Details;
 
 namespace Lottery2019.UI.Forms
 {

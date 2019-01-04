@@ -1,4 +1,4 @@
-﻿using Lottery2019.UI.Sprites;
+﻿using FlysEngine.Sprites;
 
 namespace Lottery2019.UI.Behaviors
 {
@@ -7,12 +7,7 @@ namespace Lottery2019.UI.Behaviors
         public float Fps { get; set; } = 5.0f;
         private float _accumulateTime = 0.0f;
 
-        public AutoFrameBehavior(Sprite sprite) :
-            base(sprite)
-        {
-        }
-
-        public override void UpdateLogic(float dt)
+        public override void Update(float dt)
         {
             var frameTime = 1.0f / Fps;
             _accumulateTime += dt;

@@ -5,29 +5,19 @@ using DWrite = SharpDX.DirectWrite;
 using WIC = SharpDX.WIC;
 using DirectInput = SharpDX.DirectInput;
 using Animation = SharpDX.Animation;
-using Lottery2019.UI.Details;
 using SharpDX;
 using System.Windows.Forms;
-using XnaVector2 = Microsoft.Xna.Framework.Vector2;
+using XnaVector2 = Duality.Vector2;
 using FarseerPhysics.Dynamics;
-using FarseerPhysics;
+using FlysEngine.Tools;
 
 namespace Lottery2019.UI
 {
     public class XResource2 : IDisposable
     {
-        static XResource2()
-        {
-            ConvertUnits.SetDisplayUnitToSimUnitRatio(64.0f);
-        }
-
         public readonly Direct2D1.Factory1 Direct2DFactory = new Direct2D1.Factory1();
-        public readonly SolidBrushManager Brushes = new SolidBrushManager();
         public readonly DWrite.Factory DWriteFactory = new DWrite.Factory(DWrite.FactoryType.Shared);
-        public readonly TextFormatManager TextFormats;
         public readonly WIC.ImagingFactory2 WICFactory = new WIC.ImagingFactory2();
-        public readonly BitmapManager Bitmaps;
-        public readonly TextLayoutManager TextLayouts;
 
         public readonly Animation.Manager AnimationManager = new Animation.Manager();
         public readonly Animation.TransitionLibrary TransitionLibrary = new Animation.TransitionLibrary();
@@ -49,10 +39,6 @@ namespace Lottery2019.UI
 
         public XResource2()
         {
-            TextFormats = new TextFormatManager(DWriteFactory);
-            Bitmaps = new BitmapManager(WICFactory);
-            TextLayouts = new TextLayoutManager(DWriteFactory, Brushes, TextFormats);
-
             Keyboard = new DirectInput.Keyboard(DirectInput);
             Keyboard.Acquire();
             Mouse = new DirectInput.Mouse(DirectInput);
@@ -117,16 +103,11 @@ namespace Lottery2019.UI
                 RenderTarget = DirectXTools.CreateRenderTarget(Direct2DFactory, d3device);
                 SwapChain = DirectXTools.CreateSwapChainForHwnd(d3device, windowHandle);
                 DirectXTools.CreateDeviceSwapChainBitmap(SwapChain, RenderTarget);
-                Brushes.SetRenderTarget(RenderTarget);
-                Bitmaps.SetRenderTarget(RenderTarget);
-                TextLayouts.SetRenderTarget(RenderTarget);
             }
         }
 
         public void ReleaseDeviceResources()
         {
-            Brushes.Dispose();
-            Bitmaps.Dispose();
             SwapChain.Dispose();
             RenderTarget.Dispose();
         }
@@ -141,9 +122,7 @@ namespace Lottery2019.UI
 
             TransitionLibrary.Dispose();
             AnimationManager.Dispose();
-
-            TextLayouts.Dispose();
-            TextFormats.Dispose();
+            
             Direct2DFactory.Dispose();
             DWriteFactory.Dispose();
             WICFactory.Dispose();
