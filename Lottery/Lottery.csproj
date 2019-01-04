@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net461</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlysEngine.Sprites" Version="0.1.1" />
+  </ItemGroup>
+
+</Project>
