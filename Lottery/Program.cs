@@ -1,26 +1,24 @@
-﻿using FlysEngine.Desktop;
-using FlysEngine.Sprites;
+﻿using Lottery2019.Images;
+using Lottery2019.UI.Details;
+using SharpDX.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace Lottery
+namespace Lottery2019
 {
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            using (var window = new SpriteWindow())
+        {            
+            ImageUtil.ProcessImages();
+
+            IEUtil.UsingLatestIE();
+            using (var form = new Form1())
             {
-                RenderLoop.Run(window, () => window.Render(1, 0));
+                RenderLoop.Run(form, () => form.Render());
             }
         }
     }

@@ -7,7 +7,44 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FlysEngine.Sprites" Version="0.1.1" />
+    <PackageReference Include="FarseerPhysics" Version="3.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="SharpDX" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Animation" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Desktop" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
+    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Feature\PickPrize.Designer.cs">
+      <DependentUpon>PickPrize.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Feature\WinnerForm.Designer.cs">
+      <DependentUpon>WinnerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Forms\Direct2DForm.Designer.cs">
+      <DependentUpon>Direct2DForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Forms\SpriteForm.Designer.cs">
+      <DependentUpon>SpriteForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Feature\PickPrize.resx">
+      <DependentUpon>PickPrize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Feature\WinnerForm.resx">
+      <DependentUpon>WinnerForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
