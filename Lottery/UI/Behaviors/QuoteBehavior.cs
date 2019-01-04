@@ -63,10 +63,6 @@ namespace Lottery2019.UI.Behaviors
             {
                 Sprite.XResource.TextLayouts.Remove(
                     _barrage.Text, FontSize);
-                
-                var color = GetCurrentColor();
-                Sprite.XResource.Brushes.ReleaseAllColor3(
-                    new Color3(color.R, color.G, color.B));
                 _barrage = null;
             }
 
@@ -100,11 +96,10 @@ namespace Lottery2019.UI.Behaviors
             var alpha = Status == QuoteStatus.Hiding ?
                 (float)_alpha.Value : 1.0f;
 
-            var bmp = Sprite.XResource.TextLayouts.Get(
-                _barrage.Text, FontSize);
+            var bmp = Sprite.XResource.TextLayouts[_barrage.Text, FontSize];
             renderTarget.DrawTextLayout(new Vector2(ImageDefines.RealSize, 0.0f),
                 bmp,
-                Sprite.XResource.Brushes.Get(GetCurrentColor(alpha)));
+                Sprite.XResource.GetColor(GetCurrentColor(alpha)));
         }
 
         public override void Dispose()

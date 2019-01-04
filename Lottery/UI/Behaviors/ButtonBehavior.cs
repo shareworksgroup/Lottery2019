@@ -15,8 +15,9 @@ namespace Lottery2019.UI.Behaviors
         public override void UpdateLogic(float dt)
         {
             var res = Sprite.XResource;
+            var win = Sprite.Window;
 
-            if (res.MouseState.Buttons[0])
+            if (win.MouseState.Buttons[0])
             {
                 if (Sprite.IsMouseOver())
                 {

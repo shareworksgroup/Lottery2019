@@ -6,6 +6,8 @@ using SharpDX;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FlysEngine.Desktop;
+using Lottery2019.UI.Forms;
 
 namespace Lottery2019.UI.Sprites.Loader
 {
@@ -19,17 +21,17 @@ namespace Lottery2019.UI.Sprites.Loader
                 staticSpriteFile);
         }
 
-        public IEnumerable<Sprite> CreateSprites(string stageFile, XResource xResource)
+        public IEnumerable<Sprite> CreateSprites(string stageFile, SpriteForm renderWindow)
         {
             var onStages = LoadJsonSprites<List<JsonSprite>>(stageFile);
             return onStages.Select(x =>
-                MakeSprite(x, _staticDef, xResource));
+                MakeSprite(x, _staticDef, renderWindow));
         }
 
         private Sprite MakeSprite(
             JsonSprite def,
             Dictionary<string, JsonSpriteStaticDefinition> defs,
-            XResource xResource)
+            SpriteForm xResource)
         {
             var sprite = new Sprite(xResource);
 

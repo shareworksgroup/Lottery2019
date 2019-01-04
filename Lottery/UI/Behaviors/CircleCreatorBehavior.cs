@@ -16,14 +16,16 @@ namespace Lottery2019.UI.Behaviors
         public override void UpdateLogic(float dt)
         {
             var res = Sprite.XResource;
-            var pos = res.InvertTransformPoint(res.WorldTransform, res.MouseClientPosition);
-            if (Sprite.XResource.MouseState.Buttons[0] && 
-                Sprite.XResource.KeyboardState.IsPressed(SharpDX.DirectInput.Key.LeftShift) && 
+            var win = Sprite.Window;
+
+            var pos = res.InvertTransformPoint(win.WorldTransform, win.MouseClientPosition);
+            if (win.MouseState.Buttons[0] &&
+                win.KeyboardState.IsPressed(SharpDX.DirectInput.Key.LeftShift) && 
                 pos != _lastCenter)
             {
                 _lastCenter = pos;
 
-                var child = new Sprite(Sprite.XResource);                
+                var child = new Sprite(win);
                 child.Body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
                 child.Position = pos;
                 child.SpriteType = "Debug";

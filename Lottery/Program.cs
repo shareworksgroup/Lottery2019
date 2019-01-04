@@ -1,6 +1,6 @@
-﻿using Lottery2019.Images;
+﻿using FlysEngine.Desktop;
+using Lottery2019.Images;
 using Lottery2019.UI.Details;
-using SharpDX.Windows;
 using System;
 
 namespace Lottery2019
@@ -18,7 +18,7 @@ namespace Lottery2019
             IEUtil.UsingLatestIE();
             using (var form = new Form1())
             {
-                RenderLoop.Run(form, () => form.Render());
+                RenderLoop.Run(form, () => form.Render(1, 0));
             }
         }
     }

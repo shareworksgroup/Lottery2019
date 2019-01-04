@@ -14,9 +14,9 @@ using FarseerPhysics;
 
 namespace Lottery2019.UI
 {
-    public class XResource : IDisposable
+    public class XResource2 : IDisposable
     {
-        static XResource()
+        static XResource2()
         {
             ConvertUnits.SetDisplayUnitToSimUnitRatio(64.0f);
         }
@@ -47,7 +47,7 @@ namespace Lottery2019.UI
 
         public Matrix3x2 WorldTransform;
 
-        public XResource()
+        public XResource2()
         {
             TextFormats = new TextFormatManager(DWriteFactory);
             Bitmaps = new BitmapManager(WICFactory);

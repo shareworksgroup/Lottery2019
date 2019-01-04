@@ -1,6 +1,9 @@
 ﻿using FarseerPhysics.Dynamics;
+using FlysEngine;
+using FlysEngine.Desktop;
 using Lottery2019.UI.Behaviors;
 using Lottery2019.UI.Details;
+using Lottery2019.UI.Forms;
 using Lottery2019.UI.Shapes;
 using SharpDX;
 using System;
@@ -12,6 +15,8 @@ namespace Lottery2019.UI.Sprites
 {
     public class Sprite : IDisposable
     {
+        public SpriteForm Window { get; private set; }
+
         public readonly XResource XResource;
         public event EventHandler<Sprite> Hit;        
 
@@ -70,10 +75,11 @@ namespace Lottery2019.UI.Sprites
 
         public Matrix3x2 Transform = Matrix3x2.Identity;
 
-        public Sprite(XResource xResource)
+        public Sprite(SpriteForm window)
         {
-            XResource = xResource;
-            Body = new Body(xResource.World)
+            Window = window;
+            XResource = window.XResource;
+            Body = new Body(window.World)
             {
                 UserData = this
             };
@@ -83,7 +89,7 @@ namespace Lottery2019.UI.Sprites
         {
             return Shape.TestPoint(Shapes, XResource.InvertTransformPoint(
                 Transform * XResource.RenderTarget.Transform,
-                XResource.MouseClientPosition));
+                Window.MouseClientPosition));
         }
 
         public virtual void UpdateLogic(float dt)
@@ -130,7 +136,7 @@ namespace Lottery2019.UI.Sprites
             if (Frames != null)
             {
                 renderTarget.DrawBitmap(
-                    XResource.Bitmaps.Get(Frames[FrameId]),
+                    XResource.Bitmaps[Frames[FrameId]],
                     Alpha,
                     Direct2D1.InterpolationMode.Linear);
             }
@@ -165,7 +171,7 @@ namespace Lottery2019.UI.Sprites
             {
                 behavior.Dispose();
             }
-            XResource.World.RemoveBody(Body);
+            Window.World.RemoveBody(Body);
             IsDisposed = true;
         }
 

@@ -62,7 +62,7 @@ namespace Lottery2019
                 ResetStage(stagePath);
                 if (Context.CurrentPrize != null)
                 {
-                    Sprites.Add(new Sprite(XResource)
+                    Sprites.Add(new Sprite(this)
                     {
                         SpriteType = "TheLottery",
                         Frames = new[] { Context.CurrentPrize.Image },
@@ -89,7 +89,7 @@ namespace Lottery2019
                 Context.Database.GetPersonForPrize(Context.CurrentPrize)
                 .Select(person =>
                 {
-                    var sprite = new PersonSprite(XResource, person);
+                    var sprite = new PersonSprite(this, person);
                     sprite.CanBeDeleted += Sprite_CanBeDeleted;
                     sprite.Behaviors[nameof(QuoteBehavior)] = new QuoteBehavior(sprite);
                     Context.PersonSprites[person.Name] = sprite;
@@ -167,13 +167,13 @@ namespace Lottery2019
                 Context.Started = true;
                 Context.AutoCamera = true;
 
-                var maxSpeed = XResource.World.BodyList
+                var maxSpeed = World.BodyList
                     .Where(x => x.UserData is PersonSprite)
                     .Max(x => x.LinearVelocity.Length());
                 if (maxSpeed == 0) maxSpeed = 1;
 
                 Context.GravityRate = 1.0f / maxSpeed;
-                foreach (var body in XResource.World.BodyList
+                foreach (var body in World.BodyList
                     .Where(x => x.UserData is PersonSprite))
                 {
                     body.LinearVelocity /= maxSpeed;
@@ -182,7 +182,7 @@ namespace Lottery2019
             }
         }
 
-        protected override void UpdateLogic(float dt)
+        protected override void OnUpdateLogic(float lastFrameTimeInSecond)
         {
             foreach (var sprite in Context.SpriteToRemove)
             {
@@ -196,10 +196,11 @@ namespace Lottery2019
 
             Context.SpriteToRemove.Clear();
 
-            base.UpdateLogic(dt);
-            UpdateCameraY(dt);
-            XResource.World.Gravity.Y = 9.82f * Context.GravityRate;
-            XResource.World.Step(Context.StopWorld ? 0.0f : dt);
+            base.OnUpdateLogic(lastFrameTimeInSecond);
+
+            UpdateCameraY(lastFrameTimeInSecond);
+            World.Gravity.Y = 9.82f * Context.GravityRate;
+            World.Step(Context.StopWorld ? 0.0f : lastFrameTimeInSecond);
 
             if (Context.AutoCamera && Context.PersonSprites.Count > 0)
             {
@@ -211,7 +212,7 @@ namespace Lottery2019
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
-            if (!XResource.KeyboardState.IsPressed(Key.LeftShift)) return;
+            if (!KeyboardState.IsPressed(Key.LeftShift)) return;
 
             switch (e.KeyChar)
             {
@@ -242,16 +243,16 @@ namespace Lottery2019
             }
         }
 
-        protected override void Draw(DeviceContext renderTarget)
+        protected override void OnDraw(DeviceContext renderTarget)
         {
-            base.Draw(renderTarget);
+            base.OnDraw(renderTarget);
             if (!Context.GameOver && Context.CurrentPrize != null)
             {
                 renderTarget.DrawText(
                     $"{Context.WinPersons.Count}/{Context.CurrentPrize.Count}",
-                    XResource.TextFormats.Get(24.0f),
+                    XResource.TextFormats[24.0f],
                     new RectangleF(1550.0f, 2700.0f, 100.0f, 30.0f),
-                    XResource.Brushes.Get(Color.Yellow));
+                    XResource.GetColor(Color.Yellow));
             }
         }
 
@@ -262,15 +263,15 @@ namespace Lottery2019
             var cameraMovement = CameraSpeed * dt * StageHeight;
 
             var offset = 0.0f;
-            if (XResource.KeyboardState.IsPressed(Key.Down))
+            if (KeyboardState.IsPressed(Key.Down))
             {
                 offset = cameraMovement;
             }
-            else if (XResource.KeyboardState.IsPressed(Key.Up))
+            else if (KeyboardState.IsPressed(Key.Up))
             {
                 offset = -cameraMovement;
             }
-            offset += -cameraMovement * 5 * XResource.MouseState.Z / 120.0f;
+            offset += -cameraMovement * 5 * MouseState.Z / 120.0f;
 
             if (offset != 0)
                 Context.AutoCamera = false;

@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="FarseerPhysics" Version="3.5.0" />
+    <PackageReference Include="FlysEngine.Desktop" Version="1.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Animation" Version="4.2.0" />
-    <PackageReference Include="SharpDX.Desktop" Version="4.2.0" />
     <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
     <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
     <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
@@ -29,9 +29,6 @@
     </Compile>
     <Compile Update="UI\Feature\WinnerForm.Designer.cs">
       <DependentUpon>WinnerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Forms\Direct2DForm.Designer.cs">
-      <DependentUpon>Direct2DForm.cs</DependentUpon>
     </Compile>
     <Compile Update="UI\Forms\SpriteForm.Designer.cs">
       <DependentUpon>SpriteForm.cs</DependentUpon>

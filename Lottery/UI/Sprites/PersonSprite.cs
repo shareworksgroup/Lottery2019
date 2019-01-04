@@ -2,6 +2,7 @@
 using Lottery2019.Images;
 using Lottery2019.UI.Behaviors;
 using Lottery2019.UI.Behaviors.Killings;
+using Lottery2019.UI.Forms;
 using Lottery2019.UI.Shapes;
 using SharpDX;
 using System;
@@ -15,7 +16,7 @@ namespace Lottery2019.UI.Sprites
         
         public bool CanBeDelete { get; private set; }
 
-        public PersonSprite(XResource xResource, Person person) : base(xResource)
+        public PersonSprite(SpriteForm window, Person person) : base(window)
         {
             Body.BodyType = BodyType.Dynamic;
             Body.SleepingAllowed = false;

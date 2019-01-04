@@ -9,6 +9,9 @@ namespace Lottery2019.UI.Shapes
 {
     public abstract class Shape
     {
+        public static float Restitution = 1.0f;
+        public static float Friction = 0.0f;
+
         public Vector2 Center { get; set; }
 
         public Vector2 Offset { get; set; }
@@ -46,8 +49,8 @@ namespace Lottery2019.UI.Shapes
             {
                 var engineShape = shape.ToEngineShape();
                 var fixture = body.CreateFixture(engineShape);
-                fixture.Restitution = XResource.Restitution;
-                fixture.Friction = XResource.Friction;
+                fixture.Restitution = Restitution;
+                fixture.Friction = Friction;
             }
         }
     }

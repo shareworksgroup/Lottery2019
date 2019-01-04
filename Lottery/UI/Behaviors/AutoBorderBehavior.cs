@@ -26,7 +26,7 @@ namespace Lottery2019.UI.Behaviors
         {
             foreach (var shape in Sprite.Shapes.Concat(Sprite.Edges))
             {
-                shape.Draw(renderTarget, Sprite.XResource.Brushes.Get(Color));
+                shape.Draw(renderTarget, Sprite.XResource.GetColor(Color));
             }
         }
 
@@ -35,7 +35,7 @@ namespace Lottery2019.UI.Behaviors
             var res = Sprite.XResource;
             _mouseOverSprite = Shape.TestPoint(
                 Sprite.Shapes.Concat(Sprite.Edges),
-                res.InvertTransformPoint(Sprite.Transform * res.RenderTarget.Transform, res.MouseClientPosition));
+                res.InvertTransformPoint(Sprite.Transform * res.RenderTarget.Transform, Sprite.Window.MouseClientPosition));
         }
     }
 }
