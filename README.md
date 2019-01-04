@@ -1,6 +1,11 @@
 # Lottery 2019
 
-抽奖程序，可用于公司年会抽奖，基于Direct2D/box2d。
+抽奖程序，可用于公司年会抽奖。
+
+# 技术方案
+基于图形引擎 [FlysEngine](https://github.com/sdcb/FlysEngine)，具体细节：
+* 2D图形渲染：[Direct2D/SharpDX](https://github.com/SharpDX/SharpDX)
+* 物理引擎：[AdamsLair.FarseerDuality](https://github.com/AdamsLair/farseerduality)
 
 # 安全说明
 
@@ -10,4 +15,4 @@
 
 本项目使用GPLv2协议开源，允许自由使用编译后的二进制文件，不限目的。
 
-如果需要修改配置文件（仅限json、图片）以外的代码（添加、删除或改动），则需要**将修改后的所有代码以同样的GPLv2的授权开源**。
+如果需要添加、删除或修改配置文件（仅限json、图片）以外的代码，则需要**将修改后的所有代码以同样的GPLv2的授权开源**。
