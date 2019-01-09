@@ -31,7 +31,7 @@ namespace Lottery2019.UI.Behaviors
             var res = Sprite.XResource;
             _mouseOverSprite = Shape.TestPoint(
                 Sprite.Shapes,
-                res.InvertTransformPoint(Sprite.Transform * res.RenderTarget.Transform, Sprite.Window.MouseClientPosition));
+                res.InvertTransformPoint(Sprite.Transform * Sprite.Window.GlobalTransform, Sprite.Window.MouseClientPosition));
         }
     }
 }

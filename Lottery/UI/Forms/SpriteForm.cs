@@ -55,6 +55,25 @@ namespace Lottery2019.UI.Forms
             GlobalTransform = Matrix3x2.Scaling(worldScale) * Matrix3x2.Translation(0.0f, worldOffset);
 
             base.OnDraw(renderTarget);
+
+            if (KeyboardState.IsPressed(SharpDX.DirectInput.Key.LeftShift))
+            {
+                DrawDiagnostics(renderTarget);
+            }
+        }
+
+        private void DrawDiagnostics(DeviceContext renderTarget)
+        {
+            renderTarget.Transform = Matrix3x2.Identity;
+            Matrix3x2 wt = GlobalTransform;
+            wt.Invert();
+            var worldPos = Matrix3x2.TransformPoint(wt, MouseClientPosition);
+
+            renderTarget.DrawText(
+                $"FPS: {RenderTimer.FramesPerSecond:0}\r\nFrameTime: {RenderTimer.DurationSinceLastFrame}\r\n({worldPos.X:0}, {worldPos.Y:0})",
+                XResource.TextFormats[11],
+                new RectangleF(0, 0, 100, 30),
+                XResource.GetColor(Color.White));
         }
 
         protected abstract void OnSpriteCreated();
