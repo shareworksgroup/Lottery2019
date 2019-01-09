@@ -5,6 +5,7 @@ using System.Diagnostics;
 using XnaVector2 = Duality.Vector2;
 using FlysEngine.Sprites;
 using SharpDX.Direct2D1;
+using System.Linq;
 
 namespace Lottery2019.UI.Forms
 {
@@ -38,11 +39,10 @@ namespace Lottery2019.UI.Forms
             Sprites.Clear();
             World.ProcessChanges();
             Debug.Assert(World.BodyList.Count == 0);
-
-            foreach (var sprite in _loader.CreateSprites(stagePath, this))
-            {
-                Sprites.Add(sprite.Id, sprite);
-            }
+            
+            AddSprites(
+                _loader.CreateSprites(stagePath, this)
+                .ToArray());
             
             OnSpriteCreated();
         }

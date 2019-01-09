@@ -2,7 +2,6 @@
 using SharpDX;
 using SharpDX.Direct2D1;
 using FlysEngine.Sprites;
-using FlysEngine.Managers;
 using FlysEngine.Sprites.Shapes;
 
 namespace Lottery2019.UI.Behaviors
@@ -21,7 +20,7 @@ namespace Lottery2019.UI.Behaviors
 
         public void DrawInternal(DeviceContext renderTarget)
         {
-            foreach (var shape in Sprite.Shapes.Concat(Sprite.Shapes.OfType<EdgeShape>()))
+            foreach (var shape in Sprite.Shapes.Concat(Sprite.Shapes))
             {
                 shape.Draw(renderTarget, Sprite.XResource.GetColor(Color));
             }
@@ -31,7 +30,7 @@ namespace Lottery2019.UI.Behaviors
         {
             var res = Sprite.XResource;
             _mouseOverSprite = Shape.TestPoint(
-                Sprite.Shapes.Concat(Sprite.Shapes.OfType<EdgeShape>()),
+                Sprite.Shapes,
                 res.InvertTransformPoint(Sprite.Transform * res.RenderTarget.Transform, Sprite.Window.MouseClientPosition));
         }
     }

@@ -29,7 +29,8 @@ namespace Lottery2019
 
         public Form1() : base(SpritesDef, DefaultStage)
         {
-            InitializeComponent();
+            Text = "抽奖";
+            WindowState = FormWindowState.Maximized;
         }
 
         protected override void OnSpriteCreated()
