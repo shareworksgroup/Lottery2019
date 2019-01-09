@@ -24,7 +24,7 @@ namespace Lottery2019.UI.Sprites
             Name = "Person";
             Frames = new[] { person.PsdImage };
             Center = circleShape.Center;
-            Position = new Vector2(r.NextFloat(538, 1327), r.NextFloat(379, 934));
+            Position = new Vector2(r.NextFloat(448, 1488), r.NextFloat(454, 1005));
             UserData = person;
             SetShapes(circleShape.Clone());
             AddBehavior(new AutoBorderBehavior());

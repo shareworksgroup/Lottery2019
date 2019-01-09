@@ -86,8 +86,7 @@ namespace Lottery2019
         {
             var stage = Sprites.FindSingle("StageSprite");
             var count = stage.Children.Count;
-            stage.Children.InsertRange(0,
-                Context.Database.GetPersonForPrize(Context.CurrentPrize)
+            stage.Children.AddRange(Context.Database.GetPersonForPrize(Context.CurrentPrize)
                 .Select(person =>
                 {
                     var sprite = new PersonSprite(this, person);
@@ -306,7 +305,7 @@ namespace Lottery2019
                 WinPersons.Clear();
                 Started = false;
                 AutoCamera = false;
-                StopWorld = true;
+                StopWorld = false;
                 GravityRate = 1.0f;
                 SpriteToRemove.Clear();
                 PersonSprites.Clear();
