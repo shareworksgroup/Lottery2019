@@ -2,7 +2,6 @@
 using FlysEngine.Sprites;
 using Lottery2019.Dtos;
 using Lottery2019.Images;
-using Lottery2019.UI.Sprites;
 using SharpDX;
 using SharpDX.Direct2D1;
 using Animation = SharpDX.Animation;
@@ -37,10 +36,6 @@ namespace Lottery2019.UI.Behaviors
             }
         }
 
-        public QuoteBehavior(Sprite sprite) : base(sprite)
-        {
-        }
-
         public void CreateQuote(BarrageDto barrage)
         {
             if (Status != QuoteStatus.Peath)
@@ -69,10 +64,10 @@ namespace Lottery2019.UI.Behaviors
 
             Status = QuoteStatus.Peath;
         }
-
-        public override void UpdateLogic(float dt)
+        
+        public override void Update(float dt)
         {
-            base.UpdateLogic(dt);
+            base.Update(dt);
             if (_alpha != null && _alpha.Value == _alpha.FinalValue)
             {
                 switch (Status)

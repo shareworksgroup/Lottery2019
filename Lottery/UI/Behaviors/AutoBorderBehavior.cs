@@ -21,7 +21,7 @@ namespace Lottery2019.UI.Behaviors
 
         public void DrawInternal(DeviceContext renderTarget)
         {
-            foreach (var shape in Sprite.Shapes.Concat(Sprite.Edges))
+            foreach (var shape in Sprite.Shapes.Concat(Sprite.Shapes.OfType<EdgeShape>()))
             {
                 shape.Draw(renderTarget, Sprite.XResource.GetColor(Color));
             }
@@ -31,7 +31,7 @@ namespace Lottery2019.UI.Behaviors
         {
             var res = Sprite.XResource;
             _mouseOverSprite = Shape.TestPoint(
-                Sprite.Shapes.Concat(Sprite.Edges),
+                Sprite.Shapes.Concat(Sprite.Shapes.OfType<EdgeShape>()),
                 res.InvertTransformPoint(Sprite.Transform * res.RenderTarget.Transform, Sprite.Window.MouseClientPosition));
         }
     }

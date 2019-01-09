@@ -111,7 +111,7 @@ namespace Lottery2019.Images
 
                 using (var file = File.Create(person.PsdImage))
                 {
-                    DirectXTools.SaveD2DBitmap(wic, wicBitmap, person.PsdImage);
+                    WicTools.SaveD2DBitmap(wic, wicBitmap, file);
                 }
             }
         }

@@ -9,13 +9,9 @@ namespace Lottery2019.UI.Behaviors.Killings
         private Animation.Variable _var;
         bool killing = false;
 
-        public GoTransparentKillingBehavior(Sprite sprite) : base(sprite)
+        public override void Update(float dt)
         {
-        }
-
-        public override void UpdateLogic(float dt)
-        {
-            base.UpdateLogic(dt);
+            base.Update(dt);
 
             if (!killing)
                 return;

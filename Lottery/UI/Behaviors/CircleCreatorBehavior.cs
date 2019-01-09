@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SharpDX;
+﻿using SharpDX;
 using FlysEngine.Sprites;
 using FlysEngine.Sprites.Shapes;
 
@@ -14,7 +13,7 @@ namespace Lottery2019.UI.Behaviors
             var res = Sprite.XResource;
             var win = Sprite.Window;
 
-            var pos = res.InvertTransformPoint(win.WorldTransform, win.MouseClientPosition);
+            var pos = res.InvertTransformPoint(win.GlobalTransform, win.MouseClientPosition);
             if (win.MouseState.Buttons[0] &&
                 win.KeyboardState.IsPressed(SharpDX.DirectInput.Key.LeftShift) && 
                 pos != _lastCenter)

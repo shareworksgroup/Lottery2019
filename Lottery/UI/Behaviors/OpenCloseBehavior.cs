@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using FlysEngine.Sprites;
 using Lottery2019.UI.Sprites;
 using SharpDX;
 using Animation = SharpDX.Animation;
@@ -8,8 +9,8 @@ namespace Lottery2019.UI.Behaviors
 {
     public class OpenCloseBehavior : Behavior
     {
-        private readonly Sprite _left;
-        private readonly Sprite _right;
+        private Sprite _left;
+        private Sprite _right;
 
         public float OpenDuration { get; set; } = 0.5f;
 
@@ -24,8 +25,9 @@ namespace Lottery2019.UI.Behaviors
 
         private Animation.Variable _animationL, _animationR;
 
-        public OpenCloseBehavior(Sprite sprite) : base(sprite)
+        protected override void OnSpriteSet(Sprite sprite)
         {
+            base.OnSpriteSet(sprite);
             _left = sprite.Children.FindSingle("BaffleSprite");
             _right = sprite.Children.FindSingle("Baffle2Sprite");
         }
@@ -70,7 +72,7 @@ namespace Lottery2019.UI.Behaviors
         public event EventHandler Opened;
         public event EventHandler Closed;
 
-        public override void UpdateLogic(float dt)
+        public override void Update(float dt)
         {
             if (_animationL == null) return;
 

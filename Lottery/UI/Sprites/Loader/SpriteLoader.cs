@@ -1,13 +1,13 @@
 ﻿using Lottery2019.UI.Behaviors;
 using Lottery2019.UI.Sprites.Loader.Json;
-using Lottery2019.UI.Shapes;
 using Newtonsoft.Json;
 using SharpDX;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FlysEngine.Desktop;
 using Lottery2019.UI.Forms;
+using FlysEngine.Sprites;
+using FlysEngine.Sprites.Shapes.Json;
 
 namespace Lottery2019.UI.Sprites.Loader
 {
@@ -37,7 +37,7 @@ namespace Lottery2019.UI.Sprites.Loader
 
             var staticDef = defs[def.Type];
             sprite.Body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
-            sprite.SpriteType = def.Type;
+            sprite.Name = def.Type;
             sprite.Frames = staticDef.Frames;
             sprite.Position = new Vector2(def.Position[0], def.Position[1]);
             sprite.Center = new Vector2(staticDef.Center[0], staticDef.Center[1]);
@@ -45,12 +45,9 @@ namespace Lottery2019.UI.Sprites.Loader
             sprite.Alpha = def.Alpha;
 
             // Shapes
-            sprite.Shapes = staticDef.Shapes
+            sprite.SetShapes(staticDef.Shapes
                 .Select(x => x.Create(sprite.Center))
-                .ToList();
-            sprite.Edges = staticDef.Edges
-                .Select(x => x.Create(sprite.Center))
-                .ToList();
+                .ToArray());
 
             sprite.Children.AddRange(
                 staticDef.Children.Select(child =>
@@ -62,15 +59,15 @@ namespace Lottery2019.UI.Sprites.Loader
             // Behaviors
             //sprite.Behaviors["default"] = new AutoFrameBehavior(sprite);
 #if DEBUG
-            sprite.Behaviors["AutoBorderBehavior"] = new AutoBorderBehavior(sprite);
+            sprite.AddBehavior(new AutoBorderBehavior());
 #endif
             foreach (var behavior in staticDef.Behaviors)
             {
-                sprite.Behaviors[behavior.Key] = Behavior.Create(behavior.Key, sprite, behavior.Value);
+                sprite.AddBehavior(BehaviorExtensions.Create(behavior.Key, behavior.Value));
             }
             foreach (var behavior in def.Behaviors)
             {
-                sprite.Behaviors[behavior.Key] = Behavior.Create(behavior.Key, sprite, behavior.Value);
+                sprite.AddBehavior(BehaviorExtensions.Create(behavior.Key, behavior.Value));
             }
 
             return sprite;
@@ -94,8 +91,6 @@ namespace Lottery2019.UI.Sprites.Loader
             public List<JsonSprite> Children { get; set; } = new List<JsonSprite>();
 
             public List<JsonShape> Shapes { get; set; } = new List<JsonShape>();
-
-            public List<JsonShape> Edges { get; set; } = new List<JsonShape>();
 
             public Dictionary<string, Dictionary<string, object>> Behaviors { get; set; }
                 = new Dictionary<string, Dictionary<string, object>>();

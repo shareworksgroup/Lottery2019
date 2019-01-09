@@ -7,11 +7,16 @@ namespace Lottery2019.UI.Sprites
 {
     public static class SpriteQueryExtensions
     {
+        public static IEnumerable<Sprite> FindAll(this Dictionary<Guid, Sprite> sprites, string spriteType)
+        {
+            return sprites.Values.FindAll(spriteType);
+        }
+
         public static IEnumerable<Sprite> FindAll(this IEnumerable<Sprite> sprites, string spriteType)
         {
             foreach (var sprite in sprites)
             {
-                if (sprite.SpriteType == spriteType)
+                if (sprite.Name == spriteType)
                 {
                     yield return sprite;
                 }
@@ -23,16 +28,21 @@ namespace Lottery2019.UI.Sprites
             }
         }
 
+        public static Sprite FindSingle(this Dictionary<Guid, Sprite> sprites, string spriteType)
+        {
+            return FindAll(sprites, spriteType).Single();
+        }
+
         public static Sprite FindSingle(this IEnumerable<Sprite> sprites, string spriteType)
         {
             return FindAll(sprites, spriteType).Single();
         }
 
-        public static T QueryBehavior<T>(this IEnumerable<Sprite> sprites, string spriteType)
+        public static T QueryBehavior<T>(this Dictionary<Guid, Sprite> sprites, string spriteType)
             where T : Behavior
         {
             var sprite = sprites.FindSingle(spriteType);
-            return sprite.Behaviors.QueryBehavior<T>();
+            return sprite.QueryBehavior<T>();
         }
 
         public static T QueryBehavior<T>(this Dictionary<string, Behavior> behaviors)
@@ -48,7 +58,7 @@ namespace Lottery2019.UI.Sprites
             var all = sprites.FindAll(spriteType);
             foreach (var sprite in all)
             {
-                action(sprite.Behaviors.QueryBehavior<T>());
+                action(sprite.QueryBehavior<T>());
             }
         }
 
@@ -58,6 +68,20 @@ namespace Lottery2019.UI.Sprites
                 return true;
 
             foreach (var sprite in sprites)
+            {
+                if (sprite.Children.RemoveChild(val))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static bool RemoveChild(this Dictionary<Guid, Sprite> sprites, Sprite val)
+        {
+            if (sprites.Remove(val.Id))
+                return true;
+
+            foreach (var sprite in sprites.Values)
             {
                 if (sprite.Children.RemoveChild(val))
                     return true;

@@ -1,4 +1,4 @@
-﻿using Lottery2019.UI.Sprites;
+﻿using FlysEngine.Sprites;
 using SharpDX;
 
 namespace Lottery2019.UI.Behaviors
@@ -9,10 +9,6 @@ namespace Lottery2019.UI.Behaviors
         public float Rotation { get; set; }
 
         public override float Length => MathUtil.DegreesToRadians(Rotation);
-
-        public GoAngleBehavior(Sprite sprite) : base(sprite)
-        {
-        }
 
         protected override void ByDx(float dx)
         {

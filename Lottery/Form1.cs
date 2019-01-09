@@ -63,9 +63,9 @@ namespace Lottery2019
                 ResetStage(stagePath);
                 if (Context.CurrentPrize != null)
                 {
-                    Sprites.Add(new Sprite(this)
+                    AddSprites(new Sprite(this)
                     {
-                        SpriteType = "TheLottery",
+                        Name = "TheLottery",
                         Frames = new[] { Context.CurrentPrize.Image },
                         Position = new Vector2(1500, 425),
                     });
@@ -92,7 +92,7 @@ namespace Lottery2019
                 {
                     var sprite = new PersonSprite(this, person);
                     sprite.CanBeDeleted += Sprite_CanBeDeleted;
-                    sprite.Behaviors[nameof(QuoteBehavior)] = new QuoteBehavior(sprite);
+                    sprite.AddBehavior(new QuoteBehavior());
                     Context.PersonSprites[person.Name] = sprite;
                     return sprite;
                 }));
@@ -109,7 +109,7 @@ namespace Lottery2019
         private void PersonLost(object sender, Sprite e)
         {
             if (!(e is PersonSprite sprite)) return;
-            e.Behaviors.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
+            e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
                 Color = "white",
@@ -124,7 +124,7 @@ namespace Lottery2019
             if (Context.GameOver) return;
             if (Context.WinPersons.ContainsKey(sprite.Person.Name)) return;
 
-            e.Behaviors.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
+            e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
                 Color = "yellow",
@@ -192,7 +192,7 @@ namespace Lottery2019
             }
             foreach (var sprite in Context.SpriteToAdd)
             {
-                Sprites.Add(sprite);
+                AddSprites(sprite);
             }
 
             Context.SpriteToRemove.Clear();

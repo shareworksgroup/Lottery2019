@@ -27,8 +27,8 @@ namespace Lottery2019.UI.Sprites
             Position = new Vector2(r.NextFloat(538, 1327), r.NextFloat(379, 934));
             UserData = person;
             SetShapes(circleShape.Clone());
-            AddBehavior(new AutoBorderBehavior(this));
-            AddBehavior(new GoTransparentKillingBehavior(this));
+            AddBehavior(new AutoBorderBehavior());
+            AddBehavior(new GoTransparentKillingBehavior());
         }
 
         public Person Person => (Person)UserData;
