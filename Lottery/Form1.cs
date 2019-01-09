@@ -38,13 +38,19 @@ namespace Lottery2019
             Context.Reset();
 
             var lotterySprite = Sprites.FindSingle("LotterySprite");
+            // TODO:
+            //foreach (var fixture in lotterySprite.Body.FixtureList)
+            //    fixture.IsSensor = true;
             foreach (var fixture in lotterySprite.Body.FixtureList)
-                fixture.IsSensor = true;
+            {
+                fixture.Restitution = 0.1f;
+                fixture.Friction = 0.8f;
+            }
 
             Sprites.QueryBehavior<ButtonBehavior>("StartButton")
                 .Click += (o, e) => TriggerStart();
 
-            Sprites.FindSingle("LotterySprite").Hit += PersonWin;
+            lotterySprite.Hit += PersonWin;
             foreach (var sprite in Sprites.FindAll("Chomper"))
                 sprite.Hit += PersonLost;
 
@@ -78,13 +84,6 @@ namespace Lottery2019
 
         private void CreatePersons()
         {
-            var container = Sprites.FindSingle("LotteryContainer");
-            foreach (var fixture in container.Body.FixtureList)
-            {
-                fixture.Restitution = 0.2f;
-                fixture.Friction = 0.5f;
-            }
-
             var stage = Sprites.FindSingle("StageSprite");
             var count = stage.Children.Count;
             stage.Children.InsertRange(0,
@@ -161,26 +160,21 @@ namespace Lottery2019
 
         private void Start()
         {
-            var openclose = Sprites.QueryBehavior<OpenCloseBehavior>("StageSprite");
+            Context.StopWorld = false;
+            Context.Started = true;
+            Context.AutoCamera = true;
 
-            if (openclose.Status == OpenCloseBehavior.OpenCloseStatus.Closed)
+            var maxSpeed = World.BodyList
+                .Where(x => x.UserData is PersonSprite)
+                .Max(x => x.LinearVelocity.Length);
+            if (maxSpeed == 0) maxSpeed = 1;
+
+            Context.GravityRate = 1.0f / maxSpeed;
+            foreach (var body in World.BodyList
+                .Where(x => x.UserData is PersonSprite))
             {
-                openclose.Open();
-                Context.Started = true;
-                Context.AutoCamera = true;
-
-                var maxSpeed = World.BodyList
-                    .Where(x => x.UserData is PersonSprite)
-                    .Max(x => x.LinearVelocity.Length);
-                if (maxSpeed == 0) maxSpeed = 1;
-
-                Context.GravityRate = 1.0f / maxSpeed;
-                foreach (var body in World.BodyList
-                    .Where(x => x.UserData is PersonSprite))
-                {
-                    body.LinearVelocity /= maxSpeed;
-                    body.AngularVelocity /= (maxSpeed / 2);
-                }
+                body.LinearVelocity /= maxSpeed;
+                body.AngularVelocity /= (maxSpeed / 2);
             }
         }
 
@@ -202,7 +196,10 @@ namespace Lottery2019
 
             UpdateCameraY(lastFrameTimeInSecond);
             World.Gravity.Y = 9.82f * Context.GravityRate;
-            World.Step(Context.StopWorld ? 0.0f : lastFrameTimeInSecond);
+            if (!Context.StopWorld)
+            {
+                World.Step(lastFrameTimeInSecond);
+            }
 
             if (Context.AutoCamera && Context.PersonSprites.Count > 0)
             {
@@ -309,7 +306,7 @@ namespace Lottery2019
                 WinPersons.Clear();
                 Started = false;
                 AutoCamera = false;
-                StopWorld = false;
+                StopWorld = true;
                 GravityRate = 1.0f;
                 SpriteToRemove.Clear();
                 PersonSprites.Clear();

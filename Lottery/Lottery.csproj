@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FlysEngine.Sprites" Version="0.2.0" />
+    <PackageReference Include="FlysEngine.Desktop" Version="1.0.4" />
+    <PackageReference Include="FlysEngine.Sprites" Version="0.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Animation" Version="4.2.0" />
