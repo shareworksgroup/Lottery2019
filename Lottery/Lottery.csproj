@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FlysEngine.Sprites" Version="0.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Animation" Version="4.2.0" />
@@ -15,45 +16,6 @@
     <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
     <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
     <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="DualityPrimitives">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\DualityPrimitives.dll</HintPath>
-    </Reference>
-    <Reference Include="FarseerDuality">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\FarseerDuality.dll</HintPath>
-    </Reference>
-    <Reference Include="FlysEngine">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\FlysEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="FlysEngine.Desktop">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\FlysEngine.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="FlysEngine.Sprites">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\FlysEngine.Sprites.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Animation">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.Animation.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Direct2D1">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.Direct2D1.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D11">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.Direct3D11.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DXGI">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.DXGI.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Mathematics">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\SharpDX.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple">
-      <HintPath>..\..\FlysEngine\FlysEngine.Sprites\bin\Debug\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
