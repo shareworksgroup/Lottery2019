@@ -34,9 +34,9 @@ namespace Lottery2019.State
                 File.ReadAllText("./Resources/person.json"));
             foreach (var kv in PersonJson.Persons)
                 kv.Value.Name = kv.Key;
-            foreach (var name in PersonJson.Excluded)
+            foreach (var name in PersonJson.Excluded ?? new HashSet<string>())
                 Contract.Assert(PersonJson.Persons.ContainsKey(name));
-            foreach (var name in PersonJson.ExcludedForBig)
+            foreach (var name in PersonJson.ExcludedForBig ?? new HashSet<string>())
                 Contract.Assert(PersonJson.Persons.ContainsKey(name));
         }
 
