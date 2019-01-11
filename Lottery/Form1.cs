@@ -38,9 +38,6 @@ namespace Lottery2019
             Context.Reset();
 
             var lotterySprite = Sprites.FindSingle("LotterySprite");
-            // TODO:
-            //foreach (var fixture in lotterySprite.Body.FixtureList)
-            //    fixture.IsSensor = true;
             foreach (var fixture in lotterySprite.Body.FixtureList)
             {
                 fixture.Restitution = 0.1f;
@@ -51,8 +48,6 @@ namespace Lottery2019
                 .Click += (o, e) => TriggerStart();
 
             lotterySprite.Hit += PersonWin;
-            foreach (var sprite in Sprites.FindAll("Chomper"))
-                sprite.Hit += PersonLost;
 
             if (Context.CurrentPrize != null)
             {
@@ -120,19 +115,23 @@ namespace Lottery2019
 
         private void PersonWin(object sender, Sprite e)
         {
-            if (!(e is PersonSprite sprite)) return;
+            if (!(e is PersonSprite personSprite)) return;
             if (Context.GameOver) return;
-            if (Context.WinPersons.ContainsKey(sprite.Person.Name)) return;
+            if (Context.WinPersons.ContainsKey(personSprite.Person.Name)) return;
 
-            e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
+            if (QuoteBehavior.QuoteEnabled)
             {
-                UserName = sprite.Person.Name,
-                Color = "yellow",
-                Content = Context.WordDef.Win[r.Next(Context.WordDef.Win.Count)]
-            });
-            Context.WinPersons[sprite.Person.Name] = sprite.Person;
-            sprite.Body.Restitution = 0.2f;
-            sprite.Body.Friction = 0.5f;
+                e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
+                {
+                    UserName = personSprite.Person.Name,
+                    Color = "yellow",
+                    Content = Context.WordDef.Win[r.Next(Context.WordDef.Win.Count)]
+                });
+            }
+            
+            Context.WinPersons[personSprite.Person.Name] = personSprite.Person;
+            personSprite.Body.Restitution = 0.2f;
+            personSprite.Body.Friction = 0.5f;
 
             if (Context.CurrentPrize.Count == Context.WinPersons.Count)
             {
@@ -231,6 +230,8 @@ namespace Lottery2019
 
         private void TriggerStart()
         {
+            if (Context.Started) return;
+
             if (Context.CurrentPrize != null)
             {
                 Start();

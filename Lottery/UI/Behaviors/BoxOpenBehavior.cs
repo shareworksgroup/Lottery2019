@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using SharpDX;
-using SharpDX.Direct2D1;
-using FlysEngine.Sprites;
-using FlysEngine.Sprites.Shapes;
+﻿using FlysEngine.Sprites;
 
 namespace Lottery2019.UI.Behaviors
 {

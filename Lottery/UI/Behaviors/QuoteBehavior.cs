@@ -15,6 +15,7 @@ namespace Lottery2019.UI.Behaviors
         private static readonly float FontSize = 16.0f;
         public static float FontScale = 1.5f;
         public QuoteStatus Status { get; private set; } = QuoteStatus.Peath;
+        public static bool QuoteEnabled { get; set; } = false;
 
         static QuoteBehavior()
         {
