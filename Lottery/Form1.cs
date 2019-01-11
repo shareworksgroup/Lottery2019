@@ -164,6 +164,8 @@ namespace Lottery2019
             Context.Started = true;
             Context.AutoCamera = true;
 
+            Sprites.QueryBehavior<BoxOpenBehavior>("Floor").Open();
+
             var maxSpeed = World.BodyList
                 .Where(x => x.UserData is PersonSprite)
                 .Max(x => x.LinearVelocity.Length);

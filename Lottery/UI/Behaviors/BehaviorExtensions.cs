@@ -16,6 +16,7 @@ namespace Lottery2019.UI.Behaviors
                 [nameof(CircleCreatorBehavior)] = () => new CircleCreatorBehavior(),
                 [nameof(ButtonBehavior)] = () => new ButtonBehavior(),
                 [nameof(AutoBorderBehavior)] = () => new AutoBorderBehavior(),
+                [nameof(BoxOpenBehavior)] = () => new BoxOpenBehavior(),
             };
 
         public static Behavior Create(string behaviorName, Dictionary<string, object> options)
