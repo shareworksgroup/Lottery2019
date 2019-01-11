@@ -58,7 +58,7 @@ namespace Lottery2019.UI.Sprites
         }
 
         private static Random r = new Random();
-        private static CircleShape circleShape = new CircleShape(ImageDefines.RealSize / 2.0f)
+        private static CircleShape circleShape = new CircleShape(ImageDefines.PhysicalR / 2.0f)
         {
             Center = new Vector2(ImageDefines.Size / 2.0f, ImageDefines.Size / 2.0f),
             Offset = new Vector2(

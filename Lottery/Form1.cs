@@ -86,7 +86,8 @@ namespace Lottery2019
         {
             var stage = Sprites.FindSingle("StageSprite");
             var count = stage.Children.Count;
-            stage.Children.AddRange(Context.Database.GetPersonForPrize(Context.CurrentPrize)
+            var lotteryIndex = stage.Children.IndexOf(Sprites.FindSingle("LotterySprite"));
+            stage.Children.InsertRange(lotteryIndex, Context.Database.GetPersonForPrize(Context.CurrentPrize)
                 .Select(person =>
                 {
                     var sprite = new PersonSprite(this, person);

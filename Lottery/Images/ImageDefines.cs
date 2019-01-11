@@ -10,6 +10,8 @@
 
         public const float RealSize = 32.0f;
 
+        public const float PhysicalR = 24.0f;
+
         public const string RawFolder = "./Resources/avatars";
 
         public const string PsdFolder = "./Resources/avatars/psd";
