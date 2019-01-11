@@ -13,12 +13,9 @@ namespace Lottery2019.UI.Behaviors
             {
                 [nameof(RotationBehavior)] = () => new RotationBehavior(),
                 [nameof(AutoFrameBehavior)] = () => new AutoFrameBehavior(),
-                [nameof(ChomperBehavior)] = () => new ChomperBehavior(),
-                [nameof(GoAngleBehavior)] = () => new GoAngleBehavior(),
                 [nameof(CircleCreatorBehavior)] = () => new CircleCreatorBehavior(),
                 [nameof(ButtonBehavior)] = () => new ButtonBehavior(),
                 [nameof(AutoBorderBehavior)] = () => new AutoBorderBehavior(),
-                [nameof(OpenCloseBehavior)] = () => new OpenCloseBehavior()
             };
 
         public static Behavior Create(string behaviorName, Dictionary<string, object> options)
