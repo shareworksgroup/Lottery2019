@@ -38,6 +38,7 @@ namespace Lottery2019
             Context.Reset();
 
             var lotterySprite = Sprites.FindSingle("LotterySprite");
+            lotterySprite.Hit += PersonWin;
             foreach (var fixture in lotterySprite.Body.FixtureList)
             {
                 fixture.Restitution = 0.1f;
@@ -46,8 +47,6 @@ namespace Lottery2019
 
             Sprites.QueryBehavior<ButtonBehavior>("StartButton")
                 .Click += (o, e) => TriggerStart();
-
-            lotterySprite.Hit += PersonWin;
 
             if (Context.CurrentPrize != null)
             {
