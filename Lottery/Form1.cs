@@ -39,11 +39,8 @@ namespace Lottery2019
 
             var lotterySprite = Sprites.FindSingle("LotterySprite");
             lotterySprite.Hit += PersonWin;
-            foreach (var fixture in lotterySprite.Body.FixtureList)
-            {
-                fixture.Restitution = 0.1f;
-                fixture.Friction = 0.8f;
-            }
+            var thunderSprite = Sprites.FindSingle("Thunder");
+            thunderSprite.Hit += PersonLost;
 
             Sprites.QueryBehavior<ButtonBehavior>("StartButton")
                 .Click += (o, e) => TriggerStart();
@@ -103,6 +100,7 @@ namespace Lottery2019
         private void PersonLost(object sender, Sprite e)
         {
             if (!(e is PersonSprite sprite)) return;
+            
             e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
@@ -115,6 +113,8 @@ namespace Lottery2019
         private void PersonWin(object sender, Sprite e)
         {
             if (!(e is PersonSprite personSprite)) return;
+            if (personSprite.KillingBehavior.Killing) return;
+
             if (Context.GameOver) return;
             if (Context.WinPersons.ContainsKey(personSprite.Person.Name)) return;
 

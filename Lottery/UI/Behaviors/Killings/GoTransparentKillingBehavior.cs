@@ -7,13 +7,13 @@ namespace Lottery2019.UI.Behaviors.Killings
     {
         const float KillingTime = 3.0f;
         private Animation.Variable _var;
-        bool killing = false;
+        public bool Killing { get; set; } = false;
 
         public override void Update(float dt)
         {
             base.Update(dt);
 
-            if (!killing)
+            if (!Killing)
                 return;
 
             Sprite.Alpha = (float)_var.Value;
@@ -28,7 +28,7 @@ namespace Lottery2019.UI.Behaviors.Killings
 
         public override void Kill()
         {
-            killing = true;
+            Killing = true;
             _var = Sprite.XResource.CreateAnimation(1.0f, 0.0f, KillingTime);
             Sprite.Body.Enabled = false;
         }

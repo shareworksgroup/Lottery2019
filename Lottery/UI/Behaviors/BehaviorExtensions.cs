@@ -22,6 +22,8 @@ namespace Lottery2019.UI.Behaviors
                 [nameof(MarqueeGroupBehavior)] = () => new MarqueeGroupBehavior(),
                 [nameof(GroupItemBehavior)] = () => new GroupItemBehavior(),
                 [nameof(AccelerateGroupBehavior)] = () => new AccelerateGroupBehavior(),
+                [nameof(ThunderBehavior)] = () => new ThunderBehavior(),
+                [nameof(SensorBehavior)] = () => new SensorBehavior(),
             };
 
         public static Behavior Create(string behaviorName, Dictionary<string, object> options)

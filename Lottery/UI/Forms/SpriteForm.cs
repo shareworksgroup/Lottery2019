@@ -14,7 +14,7 @@ namespace Lottery2019.UI.Forms
         protected float CameraY = 0.0f;
         protected const float StageWidth = 1920.0f;
         protected const float StageHeight = 1080.0f;
-        public const float MaxStage = 2500.0f - StageHeight;
+        public const float MaxStage = 2511.0f - StageHeight;
         SpriteLoader _loader;
 
         public SpriteForm(string spritePath, string stagePath)

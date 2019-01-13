@@ -32,7 +32,7 @@ namespace Lottery2019.UI.Sprites
         }
 
         public Person Person => (Person)UserData;
-        public KillingBehavior KillingBehavior => this.QueryBehavior<GoTransparentKillingBehavior>();
+        public GoTransparentKillingBehavior KillingBehavior => this.QueryBehavior<GoTransparentKillingBehavior>();
 
         public void Kill()
         {
