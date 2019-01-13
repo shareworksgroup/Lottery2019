@@ -18,6 +18,10 @@ namespace Lottery2019.UI.Behaviors
                 [nameof(AutoBorderBehavior)] = () => new AutoBorderBehavior(),
                 [nameof(BoxOpenBehavior)] = () => new BoxOpenBehavior(),
                 [nameof(AccelerateBehavior)] = () => new AccelerateBehavior(),
+                [nameof(MarqueeBehavior)] = () => new MarqueeBehavior(),
+                [nameof(MarqueeGroupBehavior)] = () => new MarqueeGroupBehavior(),
+                [nameof(GroupItemBehavior)] = () => new GroupItemBehavior(),
+                [nameof(AccelerateGroupBehavior)] = () => new AccelerateGroupBehavior(),
             };
 
         public static Behavior Create(string behaviorName, Dictionary<string, object> options)
@@ -33,7 +37,7 @@ namespace Lottery2019.UI.Behaviors
                 }
                 return behavior;
             }
-            throw new KeyNotFoundException(nameof(behaviorName));
+            throw new KeyNotFoundException(behaviorName);
         }
 
         private static object SwitchType(object v, Type targetType)

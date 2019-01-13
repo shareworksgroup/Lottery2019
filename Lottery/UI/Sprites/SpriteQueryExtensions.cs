@@ -45,6 +45,23 @@ namespace Lottery2019.UI.Sprites
             return sprite.QueryBehavior<T>();
         }
 
+        public static IEnumerable<T> QueryBehaviorAll<T>(this Dictionary<Guid, Sprite> sprites) where T : Behavior
+        {
+            return sprites.Values
+                .EnumerateAll()
+                .Select(x => x.QueryBehavior<T>())
+                .Where(x => x != null);
+        }
+
+        public static IEnumerable<Sprite> EnumerateAll(this IEnumerable<Sprite> sprites)
+        {
+            foreach (Sprite sprite in sprites)
+            {
+                yield return sprite;
+                foreach (Sprite childSprite in sprite.Children) yield return childSprite;
+            }
+        }
+
         public static T QueryBehavior<T>(this Dictionary<string, Behavior> behaviors)
             where T : Behavior
         {
