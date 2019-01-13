@@ -1,41 +1,64 @@
 ﻿using FlysEngine.Sprites;
 using Lottery2019.UI.Sprites;
 using SharpDX;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Lottery2019.UI.Behaviors
 {
     public class MarqueeGroupBehavior : Behavior
     {
-        public List<MarqueeBehavior> Group1 { get; set; }
-        public List<MarqueeBehavior> Group2 { get; set; }
+        public MarqueeBehavior[][] Groups { get; set; }
+
+        private int _groupItems;
+
+        const float Duration = 0.5f;
+        int StageId { get; set; } = 0;
+        float _dtAll = 0;
+        ulong _buffer = 0;
 
         public override void Update(float dt)
         {
             EnsureGroup();
+            float stage = Duration / _groupItems;
+            _dtAll += dt;
+            if (_dtAll > stage)
+            {
+                _dtAll = _dtAll - stage;
+                StageId += 1;
+                _buffer <<= 1;
+                Commit();
+            }
+        }
 
-            foreach (var item in Group1) item.LightStatus = LightStatus.Yellow;
-            foreach (var item in Group2) item.LightStatus = LightStatus.Blue;
+        private void Commit()
+        {
+            for (var i = 0; i < _groupItems; ++i)
+                Groups[0][i].Status = ReadAt(_buffer, i);
+            for (var i = 0; i < _groupItems; ++i)
+                Groups[1][^(i + 1)].Status = ReadAt(_buffer, i);
+
+            if (ReadAt(_buffer, _groupItems) == 1) _buffer = 0x_0001;
+
+            int ReadAt(ulong data, int bit) => (int)((data >> (bit + 1)) & 0x1);
         }
 
         private void EnsureGroup()
         {
-            if (Group1 != null) return;
+            if (Groups != null) return;
 
-            var marquees = Sprite.Window.Sprites
-                .QueryBehaviorAll<MarqueeBehavior>();
+            Groups = Sprite.Window.Sprites
+                .QueryBehaviorAll<MarqueeBehavior>()
+                .GroupBy(x => x.GroupId)
+                .OrderBy(x => x.Key)
+                .Select(x => x.ToArray())
+                .ToArray();
 
-            Group1 = new List<MarqueeBehavior>();
-            Group2 = new List<MarqueeBehavior>();
-            
-            foreach (MarqueeBehavior marquee in marquees)
-            {
-                if (marquee.GroupId == 1) Group1.Add(marquee);
-                else if (marquee.GroupId == 2) Group2.Add(marquee);
-                else throw new IndexOutOfRangeException($"Unknown Group: {marquee.GroupId}.");
-            }
+            Debug.Assert(Groups.Length == 2);
+            Debug.Assert(Groups[0].Length == Groups[1].Length);
+
+            _groupItems = Groups[0].Length;
+            _buffer = 0b_0001;
         }
     }
 
@@ -57,8 +80,8 @@ namespace Lottery2019.UI.Behaviors
 
     public enum LightStatus
     {
-        Off, 
-        Yellow, 
-        Blue, 
+        Off,
+        Yellow,
+        Blue,
     }
 }

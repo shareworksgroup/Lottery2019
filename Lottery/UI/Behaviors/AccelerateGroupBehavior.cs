@@ -1,8 +1,5 @@
 ﻿using FlysEngine.Sprites;
 using Lottery2019.UI.Sprites;
-using SharpDX;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Lottery2019.UI.Behaviors
@@ -50,10 +47,8 @@ namespace Lottery2019.UI.Behaviors
         {
             if (Groups != null) return;
 
-            var marquees = Sprite.Window.Sprites
-                .QueryBehaviorAll<GroupItemBehavior>();
-
-            Groups = marquees
+            Groups = Sprite.Window.Sprites
+                .QueryBehaviorAll<GroupItemBehavior>()
                 .GroupBy(x => x.GroupId)
                 .OrderBy(x => x.Key)
                 .Select(x => x.ToArray())
