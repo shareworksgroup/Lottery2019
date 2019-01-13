@@ -9,39 +9,22 @@ namespace Lottery2019.UI.Sprites
     {
         public static IEnumerable<Sprite> FindAll(this Dictionary<Guid, Sprite> sprites, string spriteType)
         {
-            return sprites.Values.FindAll(spriteType);
+            return sprites.Values
+                .EnumerateAll()
+                .Where(x => x.Name == spriteType);
         }
 
-        public static IEnumerable<Sprite> FindAll(this IEnumerable<Sprite> sprites, string spriteType)
+        public static Sprite FindFirst(this Dictionary<Guid, Sprite> sprites, string spriteType)
         {
-            foreach (var sprite in sprites)
-            {
-                if (sprite.Name == spriteType)
-                {
-                    yield return sprite;
-                }
-
-                foreach (var childSprite in FindAll(sprite.Children, spriteType))
-                {
-                    yield return childSprite;
-                }
-            }
-        }
-
-        public static Sprite FindSingle(this Dictionary<Guid, Sprite> sprites, string spriteType)
-        {
-            return FindAll(sprites, spriteType).Single();
-        }
-
-        public static Sprite FindSingle(this IEnumerable<Sprite> sprites, string spriteType)
-        {
-            return FindAll(sprites, spriteType).Single();
+            return sprites.Values
+                .EnumerateAll()
+                .FirstOrDefault(x => x.Name == spriteType);
         }
 
         public static T QueryBehavior<T>(this Dictionary<Guid, Sprite> sprites, string spriteType)
             where T : Behavior
         {
-            var sprite = sprites.FindSingle(spriteType);
+            var sprite = sprites.FindFirst(spriteType);
             return sprite.QueryBehavior<T>();
         }
 
@@ -59,23 +42,6 @@ namespace Lottery2019.UI.Sprites
             {
                 yield return sprite;
                 foreach (Sprite childSprite in sprite.Children) yield return childSprite;
-            }
-        }
-
-        public static T QueryBehavior<T>(this Dictionary<string, Behavior> behaviors)
-            where T : Behavior
-        {
-            var behavior = behaviors[typeof(T).Name];
-            return (T)behavior;
-        }
-
-        public static void QueryBehaviorAll<T>(this IEnumerable<Sprite> sprites, string spriteType, Action<T> action)
-            where T : Behavior
-        {
-            var all = sprites.FindAll(spriteType);
-            foreach (var sprite in all)
-            {
-                action(sprite.QueryBehavior<T>());
             }
         }
 

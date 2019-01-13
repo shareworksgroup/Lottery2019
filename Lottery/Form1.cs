@@ -37,10 +37,10 @@ namespace Lottery2019
         {
             Context.Reset();
 
-            var lotterySprite = Sprites.FindSingle("LotterySprite");
+            var lotterySprite = Sprites.FindFirst("LotterySprite");
             lotterySprite.Hit += PersonWin;
-            var thunderSprite = Sprites.FindSingle("Thunder");
-            thunderSprite.Hit += PersonLost;
+            var thunderSprite = Sprites.FindFirst("Thunder");
+            if (thunderSprite != null) thunderSprite.Hit += PersonLost;
 
             Sprites.QueryBehavior<ButtonBehavior>("StartButton")
                 .Click += (o, e) => TriggerStart();
@@ -75,9 +75,9 @@ namespace Lottery2019
 
         private void CreatePersons()
         {
-            var stage = Sprites.FindSingle("StageSprite");
+            var stage = Sprites.FindFirst("StageSprite");
             var count = stage.Children.Count;
-            var lotteryIndex = stage.Children.IndexOf(Sprites.FindSingle("LotterySprite"));
+            var lotteryIndex = stage.Children.IndexOf(Sprites.FindFirst("LotterySprite"));
             stage.Children.InsertRange(lotteryIndex, Context.Database.GetPersonForPrize(Context.CurrentPrize)
                 .Select(person =>
                 {
@@ -100,7 +100,9 @@ namespace Lottery2019
         private void PersonLost(object sender, Sprite e)
         {
             if (!(e is PersonSprite sprite)) return;
-            
+            if (sprite.KillingBehavior.Killing) return;
+
+            e.Body.LinearVelocity = new Vector2(0, 50).ToSimulation();
             e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
@@ -115,6 +117,7 @@ namespace Lottery2019
             if (!(e is PersonSprite personSprite)) return;
             if (personSprite.KillingBehavior.Killing) return;
 
+            e.Body.LinearVelocity = new Vector2(0, 50).ToSimulation();
             if (Context.GameOver) return;
             if (Context.WinPersons.ContainsKey(personSprite.Person.Name)) return;
 

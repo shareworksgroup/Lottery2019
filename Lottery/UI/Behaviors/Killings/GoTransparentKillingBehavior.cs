@@ -30,7 +30,6 @@ namespace Lottery2019.UI.Behaviors.Killings
         {
             Killing = true;
             _var = Sprite.XResource.CreateAnimation(1.0f, 0.0f, KillingTime);
-            Sprite.Body.Enabled = false;
         }
 
         public override void Dispose()

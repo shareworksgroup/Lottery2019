@@ -12,7 +12,8 @@ namespace Lottery2019
         /// </summary>
         [STAThread]
         static void Main()
-        {            
+        {
+            FarseerPhysics.Settings.VelocityThreshold = 0;
             ImageUtil.ProcessImages();
 
             IEUtil.UsingLatestIE();
