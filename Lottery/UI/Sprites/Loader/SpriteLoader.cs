@@ -61,11 +61,13 @@ namespace Lottery2019.UI.Sprites.Loader
 #if DEBUG
             sprite.AddBehavior(new AutoBorderBehavior());
 #endif
+            var finalBehaviors = new Dictionary<string, Dictionary<string, object>>();
             foreach (var behavior in staticDef.Behaviors)
-            {
-                sprite.AddBehavior(BehaviorExtensions.Create(behavior.Key, behavior.Value));
-            }
+                finalBehaviors.Add(behavior.Key, behavior.Value);
             foreach (var behavior in def.Behaviors)
+                finalBehaviors[behavior.Key] = behavior.Value;
+
+            foreach (var behavior in finalBehaviors)
             {
                 sprite.AddBehavior(BehaviorExtensions.Create(behavior.Key, behavior.Value));
             }
