@@ -65,7 +65,7 @@ namespace Lottery2019
                     {
                         Name = "TheLottery",
                         Frames = new[] { Context.CurrentPrize.Image },
-                        Position = new Vector2(1500, 425),
+                        Position = new Vector2(1700, 425),
                     });
                 }
             }));
@@ -252,10 +252,11 @@ namespace Lottery2019
             base.OnDraw(renderTarget);
             if (!Context.GameOver && Context.CurrentPrize != null)
             {
+                renderTarget.Transform = GlobalTransform;
                 renderTarget.DrawText(
                     $"{Context.WinPersons.Count}/{Context.CurrentPrize.Count}",
                     XResource.TextFormats[24.0f],
-                    new RectangleF(1550.0f, 2700.0f, 100.0f, 30.0f),
+                    new RectangleF(1672.0f, 1957.0f, 100.0f, 30.0f),
                     XResource.GetColor(Color.Yellow));
             }
         }

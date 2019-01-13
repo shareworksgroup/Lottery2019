@@ -24,12 +24,14 @@ namespace Lottery2019.UI.Sprites
             Name = "Person";
             Frames = new[] { person.PsdImage };
             Center = circleShape.Center;
-            Position = new Vector2(r.NextFloat(448, 1488), r.NextFloat(454, 1005));
+            Position = RandomPosition();
             UserData = person;
             SetShapes(circleShape.Clone());
             AddBehavior(new AutoBorderBehavior());
             AddBehavior(new GoTransparentKillingBehavior());
         }
+
+        public static Vector2 RandomPosition() => new Vector2(r.NextFloat(448, 1488), r.NextFloat(454, 1005));
 
         public Person Person => (Person)UserData;
         public GoTransparentKillingBehavior KillingBehavior => this.QueryBehavior<GoTransparentKillingBehavior>();
