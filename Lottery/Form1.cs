@@ -102,8 +102,8 @@ namespace Lottery2019
             if (!(e is PersonSprite sprite)) return;
             if (!sprite.IsAlive) return;
 
-            e.Body.LinearVelocity /= 10.0f;
-            e.Body.AngularVelocity /= 10.0f;
+            e.Body.LinearVelocity /= 3.0f;
+            e.Body.AngularVelocity /= 3.0f;
             e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
@@ -118,8 +118,8 @@ namespace Lottery2019
             if (!(e is PersonSprite personSprite)) return;
             if (!personSprite.IsAlive) return;
 
-            e.Body.LinearVelocity /= 10.0f;
-            e.Body.AngularVelocity /= 10.0f;
+            e.Body.LinearVelocity /= 3.0f;
+            e.Body.AngularVelocity /= 3.0f;
             if (Context.GameOver) return;
             if (Context.WinPersons.ContainsKey(personSprite.Person.Name)) return;
 
