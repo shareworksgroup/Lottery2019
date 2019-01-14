@@ -30,15 +30,5 @@ namespace Lottery2019.UI.Behaviors
         }
 
         public void Open() => _started = true;
-
-        protected override void OnSpriteSet(Sprite sprite)
-        {
-            base.OnSpriteSet(sprite);
-            foreach (var fixture in sprite.Body.FixtureList)
-            {
-                fixture.Restitution = 2.5f;
-                fixture.Friction = 0.0f;
-            }
-        }
     }
 }
