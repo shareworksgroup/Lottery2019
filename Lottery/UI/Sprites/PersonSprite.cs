@@ -7,7 +7,6 @@ using Lottery2019.UI.Behaviors.Killings;
 using Lottery2019.UI.Forms;
 using SharpDX;
 using System;
-using System.Collections.Generic;
 
 namespace Lottery2019.UI.Sprites
 {
@@ -16,6 +15,7 @@ namespace Lottery2019.UI.Sprites
         public event EventHandler CanBeDeleted;
         
         public bool CanBeDelete { get; private set; }
+        public bool IsAlive { get; set; } = true;
 
         public PersonSprite(SpriteForm window, Person person) : base(window)
         {

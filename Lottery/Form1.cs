@@ -100,9 +100,10 @@ namespace Lottery2019
         private void PersonLost(object sender, Sprite e)
         {
             if (!(e is PersonSprite sprite)) return;
-            if (sprite.KillingBehavior.Killing) return;
+            if (!sprite.IsAlive) return;
 
-            e.Body.LinearVelocity = new Vector2(0, 50).ToSimulation();
+            e.Body.LinearVelocity /= 10.0f;
+            e.Body.AngularVelocity /= 10.0f;
             e.QueryBehavior<QuoteBehavior>().CreateQuote(new BarrageDto
             {
                 UserName = sprite.Person.Name,
@@ -115,9 +116,10 @@ namespace Lottery2019
         private void PersonWin(object sender, Sprite e)
         {
             if (!(e is PersonSprite personSprite)) return;
-            if (personSprite.KillingBehavior.Killing) return;
+            if (!personSprite.IsAlive) return;
 
-            e.Body.LinearVelocity = new Vector2(0, 50).ToSimulation();
+            e.Body.LinearVelocity /= 10.0f;
+            e.Body.AngularVelocity /= 10.0f;
             if (Context.GameOver) return;
             if (Context.WinPersons.ContainsKey(personSprite.Person.Name)) return;
 
@@ -132,8 +134,6 @@ namespace Lottery2019
             }
             
             Context.WinPersons[personSprite.Person.Name] = personSprite.Person;
-            personSprite.Body.Restitution = 0.2f;
-            personSprite.Body.Friction = 0.5f;
 
             if (Context.CurrentPrize.Count == Context.WinPersons.Count)
             {
