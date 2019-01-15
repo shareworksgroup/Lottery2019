@@ -21,7 +21,7 @@ namespace Lottery2019.UI.Behaviors
         int _effectId = 0;
         private Func<int, IEnumerable<ulong>>[] _effects = new Func<int, IEnumerable<ulong>>[]
         {
-            FallDown, FlashLight, Around3
+            All
         };
         IEnumerator<ulong> CurrentEffect { get; set; }
 
@@ -52,9 +52,11 @@ namespace Lottery2019.UI.Behaviors
         void Commit(ulong buffer)
         {
             for (var i = 0; i < _length; ++i)
-                Groups[0][i].Status = buffer.ReadBit(i);
+                Groups[0][i].Status = buffer.ReadBit(i) == 1 ? O(i) : 0;
             for (var i = 0; i < _length; ++i)
-                Groups[1][^(i + 1)].Status = buffer.ReadBit(i) == 1 ? 2 : 0;
+                Groups[1][^(i + 1)].Status = buffer.ReadBit(i) == 1 ? O(i) : 0;
+
+            int O(int v) => v % 2 == 0 ? 1 : 2;
         }
 
         void EnsureGroup()
