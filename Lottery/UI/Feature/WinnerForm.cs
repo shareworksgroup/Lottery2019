@@ -18,6 +18,7 @@ namespace Lottery2019.UI.Feature
         {
             this.prize = prize;
             this.winners = winners;
+            WindowState = FormWindowState.Maximized;
             InitializeComponent();
             InitBrowser("./Resources/Html/Winner.html");
         }

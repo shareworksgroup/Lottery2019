@@ -16,6 +16,7 @@ namespace Lottery2019.UI.Feature
         private PickPrizeWindow(string[] winnedPrizes)
         {
             _winnedPrizes = winnedPrizes;
+            WindowState = FormWindowState.Maximized;
             InitializeComponent();
         }
 
