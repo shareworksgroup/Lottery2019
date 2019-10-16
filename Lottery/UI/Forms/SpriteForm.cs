@@ -56,7 +56,7 @@ namespace Lottery2019.UI.Forms
 
             base.OnDraw(renderTarget);
 
-            if (KeyboardState.IsPressed(SharpDX.DirectInput.Key.LeftShift))
+            if (KeyboardState.IsPressed(SharpDX.DirectInput.Key.RightShift))
             {
                 DrawDiagnostics(renderTarget);
             }

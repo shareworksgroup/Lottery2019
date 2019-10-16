@@ -54,7 +54,8 @@ namespace Lottery2019.UI.Behaviors
             for (var i = 0; i < _length; ++i)
                 Groups[0][i].Status = buffer.ReadBit(i) == 1 ? O(i) : 0;
             for (var i = 0; i < _length; ++i)
-                Groups[1][^(i + 1)].Status = buffer.ReadBit(i) == 1 ? O(i) : 0;
+                Groups[1][Groups[1].Length - i - 1].Status = buffer.ReadBit(i) == 1 ? O(i) : 0;
+
 
             int O(int v) => v % 2 == 0 ? 1 : 2;
         }

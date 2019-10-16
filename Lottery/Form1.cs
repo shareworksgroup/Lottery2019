@@ -227,6 +227,17 @@ namespace Lottery2019
                 case ' ':
                     TriggerStart();
                     break;
+                case 'F':
+                    if (FormBorderStyle == FormBorderStyle.Sizable)
+                    {
+                        WindowState = FormWindowState.Maximized;
+                        FormBorderStyle = FormBorderStyle.None;
+                    }
+                    else
+                    {
+                        FormBorderStyle = FormBorderStyle.Sizable;
+                    }
+                    break;
             }
         }
 
