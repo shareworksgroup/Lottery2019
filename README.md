@@ -16,3 +16,11 @@
 本项目使用GPLv2协议开源，允许自由使用编译后的二进制文件，不限目的。
 
 如果需要添加、删除或修改配置文件（仅限json、图片）以外的代码，则需要**将修改后的所有代码以同样的GPLv2的授权开源**。
+
+# Contributing
+lottery-2019 can be built with your contributions. Here are some ways you can contribute:
+* Submit Issues in lottery-2019.
+* Submit Fixes and MRs.
+
+## Contributors
+* 周杰 (Flysha.Zhou)[flysha.zhou@starlight-sms.com] Full Stack Developer
